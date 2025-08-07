@@ -2,5 +2,5 @@
 
 This repository contains Yocto environment and linked [GitHub Project](https://github.com/users/JustOxy666/projects/5)
 
-Link to "Final Project Overview" repository (containing also yocto environment): https://github.com/cu-ecen-aeld/final-project-JustOxy666
+Link to "Final Project Overview" repository: https://github.com/cu-ecen-aeld/final-project-JustOxy666
 
