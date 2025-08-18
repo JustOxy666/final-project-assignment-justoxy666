@@ -1,0 +1,16 @@
+#! /bin/sh
+
+
+case "$1" in
+start)
+echo "Starting script to connect to wifi"
+start-stop-daemon -S -n aesd-wifi-connect -a /bin/aesd/connman-wifi-start.sh > /tmp/wifi_connect_script.txt 2>&1 &
+;;
+stop)
+echo "Requested to stop wifi connection script"
+;;
+*)
+echo "Usage: $0 {start|stop}"
+exit 1
+esac
+exit 0

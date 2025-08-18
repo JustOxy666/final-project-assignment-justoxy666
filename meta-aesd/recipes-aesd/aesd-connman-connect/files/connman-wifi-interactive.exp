@@ -1,0 +1,20 @@
+#!/usr/bin/expect
+
+set wifi_ssid [lindex $argv 0]
+set wifi_pass [lindex $argv 1]
+
+set timeout 10
+
+spawn connmanctl
+expect "connmanctl>"
+send "agent on\r"
+expect "Agent registered"
+expect "connmanctl>"
+send "connect $wifi_ssid\r"
+expect "Passphrase?"
+send "$wifi_pass\r"
+expect "connmanctl\r"
+send "quit\r"
+expect eof
+
+exit 1

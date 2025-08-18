@@ -1,0 +1,20 @@
+[submodule "poky"]
+	path = poky
+	url = git://git.yoctoproject.org/poky
+	branch = kirkstone
+[submodule "meta-openembedded"]
+	path = meta-openembedded
+	url = https://git.openembedded.org/meta-openembedded
+	branch = kirkstone
+[submodule "meta-raspberrypi"]
+	path = meta-raspberrypi
+	url = git://git.yoctoproject.org/meta-raspberrypi
+	branch = kirkstone
+[submodule "meta-dotnet"]
+	path = meta-dotnet
+	url = git@github.com:jeremy-prater/meta-dotnet.git
+	branch = kirkstone
+[submodule "meta-mono"]
+	path = meta-mono
+	url = git@github.com:DynamicDevices/meta-mono.git
+	branch = kirkstone
