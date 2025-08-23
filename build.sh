@@ -25,6 +25,19 @@ add_to_local_conf() {
     fi
 }
 
+add_multiline_to_local_conf() {
+    cat conf/local.conf | grep "$1" > /dev/null
+    local_conf_info=$?
+
+    if [ $local_conf_info -ne 0 ];then
+        echo "Append ${confparam} in the local.conf file"
+        echo ${confparam} >> conf/local.conf
+        
+    else
+        echo "${confparam} already exists in the local.conf file"
+    fi
+}
+
 #################
 # SET MACHINE
 #################
@@ -36,6 +49,25 @@ add_to_local_conf
 # SET RPi PARAMS
 #################
 CONFLINE="ENABLE_UART = \"1\""
+confparam=$CONFLINE
+add_to_local_conf
+
+#################
+# Configure UART3
+# Pins (GPIO 4 and 5 to TXD3/RXD4 (ALT4))
+# Overlay overlays/uart3.dtbo
+#################
+CONFLINE=" \
+    RPI_EXTRA_CONFIG = \"\n# Configure UART3 pins\ngpio=4,5=a4 \
+    \n\n# Enable UART3\ndtoverlay=uart3\" \
+    "
+confparam=$CONFLINE
+add_multiline_to_local_conf RPI_EXTRA_CONFIG
+
+#################
+# Add UART3 devicetree overlay to /boot/overlays
+#################
+CONFLINE="RPI_KERNEL_DEVICETREE_OVERLAYS:append = \" overlays/uart3.dtbo\""
 confparam=$CONFLINE
 add_to_local_conf
 
