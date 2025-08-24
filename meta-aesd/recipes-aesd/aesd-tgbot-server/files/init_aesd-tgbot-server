@@ -1,0 +1,24 @@
+#! /bin/sh
+
+# Do not push real Bot token, API ID and API Hash to public Git repository!
+case "$1" in
+start)
+echo "Starting script to start aesd-tgbot-server"
+start-stop-daemon -S -n aesd-tgbot-server -a "/bin/aesd/aesd-tgbot-server_start.sh" \
+"/opt/aesd-tgbot-server/aesd-tgbot-server.dll" \
+"<Bot token>" \
+"<API ID>" \
+"<API Hash>" \
+"localhost" \
+"9000" &
+;;
+stop)
+echo "Requested to stop aesd-tgbot-server"
+start-stop-daemon -K -n aesd-tgbot-server
+killall dotnet
+;;
+*)
+echo "Usage: $0 {start|stop}"
+exit 1
+esac
+exit 0

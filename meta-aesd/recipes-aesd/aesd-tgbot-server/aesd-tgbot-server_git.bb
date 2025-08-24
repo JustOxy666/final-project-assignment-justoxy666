@@ -12,9 +12,12 @@ RDEPENDS:${PN}:append = " \
     zlib \
 "
 
-SRC_URI = "git://git@github.com/JustOxy666/aesd-finalprj-tgbotserver.git;protocol=ssh;branch=main"
+SRC_URI = "git://git@github.com/JustOxy666/aesd-finalprj-tgbotserver.git;protocol=ssh;branch=main \
+	file://aesd-tgbot-server_start.sh \
+	file://init_aesd-tgbot-server \
+    "
 PV = "1.0+git${SRCPV}"
-SRCREV = "64f9198c88cdd6e22863fe6b9dca47e9d1d201e3"
+SRCREV = "1e53f213c579523519979b61c51f47a515869594"
 
 
 COMPATIBLE_HOST ?= "(x86_64|aarch64|arm).*-linux"
@@ -31,9 +34,15 @@ INSANE_SKIP:${PN} += "\
 S = "${WORKDIR}/git/aesd-tgbot-server"
 do_compile[network] = "1"
 
-#S = "${WORKDIR}/aesd-tgbot-server"
-#FILES:${PN} += "aesd-tgbot-server"
-#FILES:${PN} += "/opt/dotnet/${PN}"
+# Startup
+inherit update-rc.d
+
+FILES:${PN} += "${base_bindir}/aesd/aesd-tgbot-server_start.sh"
+FILES:${PN} += "${sysconfdir}/init.d/init_aesd-tgbot-server"
+
+# Refrence class which handles install scripts
+INITSCRIPT_PACKAGES = "${PN}"
+INITSCRIPT_NAME:${PN} = "init_aesd-tgbot-server"
 
 do_compile () {
     dotnet publish "${S}/${PN}.csproj" \
@@ -56,6 +65,13 @@ do_install () {
     if [ "${SRC_ARCH}" = "x64" ]; then
         ln -s ${base_libdir} ${D}/lib64
     fi
+
+	install -d ${D}${base_bindir}
+	install -d ${D}${base_bindir}/aesd
+    install -d ${D}${sysconfdir}/init.d
+
+	install -m 0755 ${WORKDIR}/aesd-tgbot-server_start.sh ${D}${base_bindir}/aesd/
+	install -m 0755 ${WORKDIR}/init_aesd-tgbot-server ${D}${sysconfdir}/init.d
 }
 
 FILES:${PN}:append = " /opt/${PN}/ /lib64"
