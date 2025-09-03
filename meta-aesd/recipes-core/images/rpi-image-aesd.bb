@@ -9,7 +9,6 @@ IMAGE_INSTALL:append = " packagegroup-rpi-test \
     python3-pyserial \
     python3-numpy \
     python3-wxgtk4 \
-    screen \
     bash \
     expect \
     vim \
@@ -18,9 +17,9 @@ IMAGE_INSTALL:append = " packagegroup-rpi-test \
     aesd-connman-connect \
     aesd-tgbot-server \
     aesd-gnssposget-server \
+    aesd-gnssposget-driver \
+    util-linux \
 "
     
 inherit core-image
 CORE_IMAGE_EXTRA_INSTALL += "openssh"
-
-inherit logging

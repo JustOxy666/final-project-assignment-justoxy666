@@ -2,8 +2,10 @@
 #set -x #echo on
 
 ####################################
-expected_ssid="OxyGen"
-wifi_pass="RAZVODNQEklu4i"
+#expected_ssid="OxyGen"
+#wifi_pass="RAZVODNQEklu4i"
+expected_ssid="coursera-test"
+wifi_pass="12345678"
 static_ip="192.168.0.100"
 netmask="255.255.255.0"
 gateway="192.168.0.1"
@@ -70,9 +72,10 @@ do
     fi
 done
 
-# Set static IP address
-connmanctl config $wifi_ssid --ipv4 manual $static_ip $netmask $gateway
-connmanctl config $wifi_ssid --nameservers $nameservers
+# Set static IP address 
+# Doesn't work with iPhone connection :(
+#connmanctl config $wifi_ssid --ipv4 manual $static_ip $netmask $gateway
+#connmanctl config $wifi_ssid --nameservers $nameservers
 
 echo "WiFi is connected to $wifi_ssid"
 exit 0

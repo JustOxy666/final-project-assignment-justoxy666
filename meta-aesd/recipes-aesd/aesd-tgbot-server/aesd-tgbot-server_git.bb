@@ -17,7 +17,7 @@ SRC_URI = "git://git@github.com/JustOxy666/aesd-finalprj-tgbotserver.git;protoco
 	file://init_aesd-tgbot-server \
     "
 PV = "1.0+git${SRCPV}"
-SRCREV = "1e53f213c579523519979b61c51f47a515869594"
+SRCREV = "262024986dbdcbb7fd20d6abdd6b45bbb74649b3"
 
 
 COMPATIBLE_HOST ?= "(x86_64|aarch64|arm).*-linux"
@@ -61,7 +61,6 @@ do_compile () {
 do_install () {
     install -d ${D}/opt/
     cp -r --no-preserve=ownership ${B}/${PN} ${D}/opt
-    #bbwarn "cp -r --no-preserve=ownership ${B}/${PN} ${D}/opt"
     if [ "${SRC_ARCH}" = "x64" ]; then
         ln -s ${base_libdir} ${D}/lib64
     fi
