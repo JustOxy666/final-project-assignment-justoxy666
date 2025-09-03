@@ -5,7 +5,7 @@ LIC_FILES_CHKSUM = "file://${COMMON_LICENSE_DIR}/MIT;md5=0835ade698e0bcf8506ecda
 
 SRC_URI = "git://git@github.com/JustOxy666/aesd-finalprj-linuxapps.git;protocol=ssh;branch=main"
 PV = "1.0+git${SRCPV}"
-SRCREV = "613d143f4849650176896c6f45becea35d1f1d61"
+SRCREV = "4be70f5c53a138d52ba0c309753f6ad939a567cd"
 
 S = "${WORKDIR}/git/aesd-gnssposget-server"
 
@@ -25,12 +25,15 @@ do_configure () {
 }
 
 do_compile () {
-	oe_runmake all
+	oe_runmake debug
 }
 
 do_install () {
 	install -d ${D}${bindir}
 	install -d ${D}${sysconfdir}/init.d
-	install -m 0755 ${S}/aesd-gnssposget-server ${D}${bindir}/	
+	install -m 0755 ${S}/aesd-gnssposget-server ${D}${bindir}/
+	install -m 0755 ${S}/gnss_module_start.sh ${D}${bindir}/
 	install -m 0755 ${S}/aesd-gnssposget-server-start-stop.sh ${D}${sysconfdir}/init.d
 }
+
+RDEPENDS:aesd-gnssposget-server = "bash"
